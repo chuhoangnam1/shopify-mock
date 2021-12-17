@@ -15,8 +15,6 @@ You can use this gem explicitely for testing, or you can also use it in your
 development environment to speed things up when fiddling around in the web
 browser, or in the console.}
 
-  s.rubyforge_project = "shopify-mock"
-
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
