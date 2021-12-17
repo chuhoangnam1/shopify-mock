@@ -35,7 +35,7 @@ After installing the gem in your Shopify app, load the rails console, and try
 this quick example:
 
     rails c -e test
-    
+
     ShopifyAPI::Base.api_version = '2019-04'
     session = ShopifyAPI::Session.new(domain: "domain", token: "randomtoken", api_version: "2019-04")
     ShopifyAPI::Base.activate_session(session)
@@ -52,13 +52,13 @@ You have access to all the registered mock responses through ShopifyAPI::Mock::R
     ShopifyAPI::Mock::Response.clear # => clears all the currently registered responses
 
 You also have access to each Shopify object asset by it's `id` based on the ids in the fixtures.  If you are using the fixtures include in the gem, you can do
-    
+
     product = ShopifyAPI::Product.find(632910392)
 
 and you'll get back the fixture product called `Ipod Nano 8GB`
 
 And you can register your own response:
-    
+
     ShopifyAPI::Mock::Response.new(:get, "orders/1.xml", "response content")
 
 == Fixtures
@@ -68,23 +68,23 @@ You have access to the shopify-mock fixtures through ShopifyAPI::Mock::Fixture
     ShopifyAPI::Mock::Fixture.all                   # => an array of all the fixtures
     ShopifyAPI::Mock::Fixture.find(:orders, :json)  # => returns the orders.json fixture
     ShopifyAPI::Mock::Fixture.path                  # => the path to the fixture files
-    
+
     # to use your own fixture path:
     ShopifyAPI::Mock::Fixture.path = File.join(Rails.root, 'spec', 'fixtures')
     ShopifyAPI::Mock.reset # => to reload the fixtures
-    
+
 A Fixture object has these methods:
-    
+
     fixture = ShopifyAPI::Mock::Fixture.all.first
-    
+
     fixture.name  # => the name of the fixture, such as :orders
     fixture.ext   # => the extension of the fixture, such as :json, or :xml
     fixture.data  # => the file contents
-    
+
     # to override the fixture's contents:
     fixture.data = "new contents" # => use "new contents" for this fixture
     fixture.data = nil            # => resets back to default contents
-    
+
 == Contributing to shopify-mock
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet

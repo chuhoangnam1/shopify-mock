@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe :response do
-  
+
   after(:all) { ShopifyAPI::Mock.reset }
-  
+
   describe "#new" do
     before { @fixture = ShopifyAPI::Mock::Fixture.find :orders }
     it "should cache the new response" do
@@ -12,13 +12,13 @@ describe :response do
       ShopifyAPI::Mock::Response.all.count.should eq count + 1
     end
   end
-  
+
   describe "class methods" do
     describe "#all" do
       subject { ShopifyAPI::Mock::Response.all }
       it { should be_kind_of Array }
     end
-    
+
     describe "#clear" do
       it "should clear the responses" do
         ShopifyAPI::Mock::Response.new(:get, "/orders.json", @fixture)
@@ -28,5 +28,5 @@ describe :response do
       end
     end
   end
-  
+
 end
