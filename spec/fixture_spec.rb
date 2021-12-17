@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe ShopifyAPI::Mock::Fixture do
-  
+
   describe "#new" do
     context "with invalid file name" do
       it "should raise IOError" do
         expect {ShopifyAPI::Mock::Fixture.new("invalid-file") }.to raise_error IOError
       end
     end
-    
+
     context "with valid file name" do
       before do
         @file_name = File.expand_path("../../lib/shopify-mock/fixtures/json/orders.json", __FILE__)
@@ -17,14 +17,14 @@ describe ShopifyAPI::Mock::Fixture do
       specify { @fixture.should be_a ShopifyAPI::Mock::Fixture }
     end
   end
-  
+
   describe "class methods" do
     describe "#all" do
       before { @all = ShopifyAPI::Mock::Fixture.all }
       specify { @all.should be_kind_of Array }
       specify { @all.length.should > 0 }
     end
-    
+
     describe "#find" do
       context "with a valid fixture name" do
         before { @result = ShopifyAPI::Mock::Fixture.find :orders, :json }
@@ -36,25 +36,25 @@ describe ShopifyAPI::Mock::Fixture do
       end
     end
   end
-  
+
   describe "instance methods" do
     before(:all) do
       @fixture = ShopifyAPI::Mock::Fixture.find :orders, :json
       @original_data = @fixture.data
     end
-    
+
     describe "#name" do
       specify { @fixture.name.should be_a Symbol }
     end
-    
+
     describe "#ext" do
       specify { @fixture.ext.should be_a Symbol }
     end
-    
+
     describe "#data" do
       specify { @fixture.data.should_not be_empty }
     end
-    
+
     describe "#data=" do
       it "should override the original content" do
         @fixture.data.should eq @original_data

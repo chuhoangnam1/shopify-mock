@@ -16,11 +16,11 @@ module ShopifyAPI
           :body => response
         )
       end
-      
+
       class << self
         # store for all registered responses
         @@responses = []
-        
+
         # finds all the registered responses
         # @return [Array, FakeWeb] all the FakeWeb registered responses
         # @example List all the registered responses
@@ -29,7 +29,7 @@ module ShopifyAPI
         def all
           @@responses
         end
-        
+
         # clears all the currently registered responses
         # @return [Array] the registered responses after clearing (should be empty)
         # @example Clearing all registered responses

@@ -1,11 +1,11 @@
 module ShopifyAPI
   module Mock
-    
+
     # provides easy access to fixtures
     class Fixture
       @@path = nil
       @@cache = {}
-      
+
       # creates a new instance of ShopifyAPI::Mock::Fixture
       # @param [String] file_name The location of the file to load into the fixture
       # @raise [IOError] Raised when file_name is invalid
@@ -14,7 +14,7 @@ module ShopifyAPI
         raise IOError, "File not found: #{file_name}" unless File.exists? file_name
         @file_name = file_name
       end
-      
+
       # gets the content of the fixture
       # @return [String] the contents of the file, or @data if it was overwritten
       # @example Create a fixture and read its contents
@@ -24,7 +24,7 @@ module ShopifyAPI
       def data
         @data || File.read(@file_name)
       end
-      
+
       # gets the name of the fixture
       # @return [Symbol] the the file name without the extension
       # @example Load a fixture and get its name
@@ -34,7 +34,7 @@ module ShopifyAPI
       def name
         File.basename(@file_name, ".#{self.ext.to_s}").to_sym
       end
-      
+
       # overrides the contents of the fixture
       # @param [String] value The new value to use, or set to nil to reset to default
       # @return The new contents of the fixture
@@ -50,7 +50,7 @@ module ShopifyAPI
         @data = value
         data
       end
-      
+
       # gets the extension of the fixture
       # @return [Symbol] The extension
       # @example Create a new fixture and get its extension
@@ -60,7 +60,7 @@ module ShopifyAPI
       def ext
         File.extname(@file_name).gsub(".","").to_sym
       end
-      
+
       class << self
         # finds all the fixtures
         # @return [Array, Fixture] an array of all the Fixtures
@@ -73,14 +73,14 @@ module ShopifyAPI
           Dir[File.join(ShopifyAPI::Mock::Fixture.path, "**", "*")].each do |f|
             files << f unless File.directory? f
           end
-          
+
           # map files to fixtures
           files.map do |file_name|
             fixture_name = File.basename(file_name)
             @@cache[fixture_name] ||= Fixture.new(file_name)
           end
         end
-        
+
         # finds a fixture by name
         # @param [Symbol] name The name of the fixture
         # @param [Symbol] ext The extension of the symbol - defaults to :json
@@ -96,7 +96,7 @@ module ShopifyAPI
           return nil unless File.exists? file_name
           @@cache[fixture_name] ||= Fixture.new(file_name)
         end
-        
+
         # gets the current path to the fixtures
         # @return [String] The fixtures path
         # @example Get the fixtures path
@@ -105,7 +105,7 @@ module ShopifyAPI
         def path
           @@path ||= File.expand_path("../fixtures/", __FILE__)
         end
-        
+
         # sets the current fixtures path
         # @param [String] value The new fixtures path
         # @return [String] The new fixtures path
@@ -118,7 +118,7 @@ module ShopifyAPI
           @@cache = {}
         end
       end
-      
+
     end
   end
 end

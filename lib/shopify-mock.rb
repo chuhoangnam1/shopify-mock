@@ -19,7 +19,7 @@ module ShopifyAPI
       def enabled?
         @enabled || false
       end
-      
+
       # enable or disable ShopifyAPI::Mock
       # @param [Boolean] value true to enable ShopifyAPI::Mock, false to disable
       # @return [Boolean] true if enabled
@@ -36,7 +36,7 @@ module ShopifyAPI
         end
         @enabled = value
       end
-      
+
       # resets the ShopifyAPI::Mocks back to their original state
       # @return [Boolean] true when successful
       # @example Reset the mocks
@@ -49,7 +49,7 @@ module ShopifyAPI
         ShopifyAPI::Mock.enabled = false
         ShopifyAPI::Mock.enabled = true
       end
-      
+
       # gets the state of access to the real Internet
       # @return [Boolean] false if all access to the Internet has been disabled
       # @example Check if access has been disabled
@@ -58,7 +58,7 @@ module ShopifyAPI
       def allow_internet?
         @allow_internet || true
       end
-      
+
       # enables or disables access to the real Internet
       # @return [Boolean] status of real Internet access
       # @example Turn off access to the Internet altogether
@@ -69,13 +69,13 @@ module ShopifyAPI
         @allow_internet = state
         FakeWeb.allow_net_connect = @allow_internet
       end
-      
+
       # registers all the fixed responses
       # @return [Array] the responses that were registered
       # @api private
       def register_fixed_responses
         ShopifyAPI::Mock::Response.clear
-        
+
         registered_responses = []
         ShopifyAPI::Mock::Fixture.all.each do |fixture|
           # register the count fixture for this resource, if it exists
@@ -117,7 +117,7 @@ module ShopifyAPI
           end
         end
       end
-      
+
       private
       def parse_fixture_data(fixture)
         case fixture.ext
