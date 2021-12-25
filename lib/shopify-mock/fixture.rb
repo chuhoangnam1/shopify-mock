@@ -32,7 +32,7 @@ module ShopifyAPI
       #   name = fixture.name # => :orders
       # @api public
       def name
-        File.basename(@file_name, ".#{self.ext.to_s}").to_sym
+        File.basename(@file_name, ".json").to_sym
       end
 
       # overrides the contents of the fixture
@@ -49,16 +49,6 @@ module ShopifyAPI
       def data=(value)
         @data = value
         data
-      end
-
-      # gets the extension of the fixture
-      # @return [Symbol] The extension
-      # @example Create a new fixture and get its extension
-      #   fixture = ShopifyAPI::Fixture.new "./orders.xml"
-      #   ext = fixture.ext # => :xml
-      # @api public
-      def ext
-        File.extname(@file_name).gsub(".","").to_sym
       end
 
       class << self
@@ -83,16 +73,13 @@ module ShopifyAPI
 
         # finds a fixture by name
         # @param [Symbol] name The name of the fixture
-        # @param [Symbol] ext The extension of the symbol - defaults to :json
         # @return [ShopifyAPI::Mock::Fixture] The fixture or nil if not found
-        # @example Find the orders json fixture
+        # @example Find the orders fixture
         #   fixture = ShopifyAPI::Mock::Fixture.find :orders
-        # @example Find the orders xml fixture
-        #   fixture = ShopifyAPI::Mock::Fixture.find :orders, :xml
         # @api public
-        def find(name, ext = :json)
-          fixture_name = "#{name.to_s}.#{ext.to_s}"
-          file_name = File.join(self.path, ext.to_s, fixture_name)
+        def find(name)
+          fixture_name = "#{name.to_s}.json"
+          file_name = File.join(self.path, fixture_name)
           return nil unless File.exists? file_name
           @@cache[fixture_name] ||= Fixture.new(file_name)
         end

@@ -11,7 +11,7 @@ describe ShopifyAPI::Mock::Fixture do
 
     context "with valid file name" do
       before do
-        @file_name = File.expand_path("../../lib/shopify-mock/fixtures/json/orders.json", __FILE__)
+        @file_name = File.expand_path("../../lib/shopify-mock/fixtures/orders.json", __FILE__)
         @fixture = ShopifyAPI::Mock::Fixture.new(@file_name)
       end
       specify { @fixture.should be_a ShopifyAPI::Mock::Fixture }
@@ -27,11 +27,11 @@ describe ShopifyAPI::Mock::Fixture do
 
     describe "#find" do
       context "with a valid fixture name" do
-        before { @result = ShopifyAPI::Mock::Fixture.find :orders, :json }
+        before { @result = ShopifyAPI::Mock::Fixture.find :orders }
         specify { @result.should be_kind_of ShopifyAPI::Mock::Fixture }
       end
       context "with an invalid fixture name" do
-        before { @result = ShopifyAPI::Mock::Fixture.find :brown_chicken_brown_cow, :xml }
+        before { @result = ShopifyAPI::Mock::Fixture.find :brown_chicken_brown_cow }
         specify { @result.should be_nil }
       end
     end
@@ -39,16 +39,12 @@ describe ShopifyAPI::Mock::Fixture do
 
   describe "instance methods" do
     before(:all) do
-      @fixture = ShopifyAPI::Mock::Fixture.find :orders, :json
+      @fixture = ShopifyAPI::Mock::Fixture.find :orders
       @original_data = @fixture.data
     end
 
     describe "#name" do
       specify { @fixture.name.should be_a Symbol }
-    end
-
-    describe "#ext" do
-      specify { @fixture.ext.should be_a Symbol }
     end
 
     describe "#data" do
